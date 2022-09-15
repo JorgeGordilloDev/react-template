@@ -8,9 +8,15 @@ const userApiSlice = apiSlice.injectEndpoints({
 				method: 'GET',
 			}),
 		}),
+		profile: builder.query({
+			query: (id) => ({
+				url: `/users/${id}/profile/`,
+				method: 'GET',
+			}),
+		}),
 	}),
 })
 
-export const { useUserQuery, useLazyUserQuery } = userApiSlice
+export const { useUserQuery, useLazyUserQuery, useProfileQuery } = userApiSlice
 
 export default userApiSlice

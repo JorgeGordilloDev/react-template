@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 const AboutPage = () => {
 	const dispatch = useDispatch()
 
+	// Hook para actualizar el titulo
+	// y el breadcrumb de cada pagina
 	useEffect(() => {
 		dispatch(setTitle('Acerda de'))
 		dispatch(
