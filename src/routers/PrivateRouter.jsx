@@ -1,10 +1,10 @@
 import { Outlet, useLocation, Navigate } from 'react-router-dom'
-// import { useSelector } from 'react-redux'
-// import { selectCurrentUser } from '../redux/states/auth'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '../app/states/auth'
 
 const PrivateRouter = ({ allowedRoles }) => {
 	const location = useLocation()
-	// const user = useSelector(selectCurrentUser)
+	const user = useSelector(selectCurrentUser)
 
 	const hasRole = (allowedRoles) =>
 		user?.roles?.find((role) => allowedRoles?.includes(role))

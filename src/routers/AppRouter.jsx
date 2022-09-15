@@ -10,7 +10,10 @@ import AboutPage from '../pages/AboutPage'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 
+import UserProfilePage from '../pages/user/Profile'
+
 import NotFoundPage from '../pages/NotFoundPage'
+import Unauthorized from '../pages/Unauthorized'
 
 const AppRouter = () => {
 	return (
@@ -21,17 +24,23 @@ const AppRouter = () => {
 				<Route path="/" element={<AppLayout />}>
 					{/* Public routes */}
 					<Route path="/" index element={<HomePage />} />
-					<Route path="/acerda-de" index element={<AboutPage />} />
+					<Route path="/acerda-de" element={<AboutPage />} />
 
 					{/* Private routes */}
 					<Route path="/" element={<PrivateRouter />}>
-						<Route path="/profile" element={<DashboardPage />} />
+						<Route path="/dashboard" element={<DashboardPage />} />
+						<Route
+							path="/user/perfil"
+							element={<UserProfilePage />}
+						/>
 					</Route>
+
+					<Route path="/no-autorizado" element={<Unauthorized />} />
+					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 				{/* Other layout */}
 				<Route path="/" element={<RegisterLayout />}>
 					<Route path="/login" index element={<LoginPage />} />
-					<Route path="*" element={<NotFoundPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
