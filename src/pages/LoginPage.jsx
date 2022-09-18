@@ -3,12 +3,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../app/states/auth'
 import { useLoginMutation } from '../services/auth.service'
+import Alert from '../components/Alert'
 
 const index = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const location = useLocation()
-	const from = location.state?.from?.pathname || '/'
+
+	const from = location.state?.from?.pathname || '/servicios'
 
 	const [login, { isLoading, isError, error, data, isSuccess }] =
 		useLoginMutation()
@@ -45,6 +47,28 @@ const index = () => {
 		}
 	}
 
+	const handleLoginFake = (e) => {
+		e.preventDefault()
+		dispatch(
+			setCredentials({
+				user: {
+					id: 1,
+					username: 'kevin',
+					email: 'kevin@gmail.com',
+					roles: ['ADMIN'],
+				},
+				accessToken: {
+					access: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYzNDY1MjczLCJpYXQiOjE2NjM0NjE2NzMsImp0aSI6IjliZDg2YzU5YTk2ZTRmNzI4NjRlNzFjODNhODM3OWUzIiwidXNlcl9pZCI6MX0.6KtJVLWq3UfnT1RRB4NFCRduhE_J3k9c1n7U22j_UFQ',
+					refresh:
+						'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2MzQ4MzI3MywiaWF0IjoxNjYzNDYxNjczLCJqdGkiOiI1ODMzNmZmYmQyMzI0MjM3YTQ0NGI2NGNlZDg2NjYyNiIsInVzZXJfaWQiOjF9.0v2iemtVj3kNysO_ttD1WKhzrhilhVOWGU7onIaudaw',
+				},
+			})
+		)
+		setPassword('')
+		setUsername('')
+		navigate(from, { replace: true })
+	}
+
 	return (
 		<div className="login-page ">
 			<div className="login-box">
@@ -58,7 +82,7 @@ const index = () => {
 						<p className="login-box-msg">
 							Sign in to start your session
 						</p>
-						<form onSubmit={handleLogin}>
+						<form onSubmit={handleLoginFake}>
 							<div className="input-group mb-3">
 								<input
 									type="text"
