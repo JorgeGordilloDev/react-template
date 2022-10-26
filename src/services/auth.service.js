@@ -4,7 +4,9 @@ const authApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		login: builder.mutation({
 			query: (body) => ({
-				url: '/auth/login/ ',
+				// TODO: cambiar la ruta del login
+				// url: '/auth/login/ ',
+				url: '/user/token ',
 				method: 'POST',
 				body,
 			}),

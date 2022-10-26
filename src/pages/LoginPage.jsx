@@ -26,18 +26,29 @@ const index = () => {
 
 	const handleLogin = async (e) => {
 		e.preventDefault()
-		const response = await login({ username, password })
+		const response = await login(
+			// ? aqui va el cuerpo de la peticion
+			// por lo visto es lo mismo
+			{
+				username,
+				password,
+			}
+		)
 		if (response.data) {
 			dispatch(
 				setCredentials({
 					user: {
-						username: response.data?.username,
-						email: response.data?.email,
-						roles: response.data?.roles,
+						// TODO: en este objeto deben de guardar los datos del usuario
+						// ! datos que el servidor no entrega por el momento
+						username: response.data?.username ?? 'kevin', // TODO: eliminar ( ?? 'kevin') caundo el servidor responda los datos
+						email: response.data?.email ?? 'kevin@gmail.com',
+						roles: response.data?.roles ?? [],
 					},
 					accessToken: {
-						access: response.data?.access,
-						refresh: response.data?.refresh,
+						// TODO: cambiar el nombre de la respuesta
+						// access: response.data?.access,
+						access: response.data?.access_token,
+						refresh: response.data?.refresh_token ?? null, // ! dato no enviado por el servidor
 					},
 				})
 			)
@@ -90,7 +101,7 @@ const index = () => {
 						<p className="login-box-msg">
 							Sign in to start your session
 						</p>
-						<form onSubmit={handleLoginFake}>
+						<form onSubmit={handleLogin}>
 							<div className="input-group mb-3">
 								<input
 									type="text"

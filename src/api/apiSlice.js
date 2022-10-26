@@ -5,7 +5,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, logOut } from '../app/states/auth'
 
-const baseUrl = 'http://127.0.0.1:8000/v1'
+// TODO: cambiar la ruta del servidor
+// const baseUrl = 'http://127.0.0.1:8000/v1'
+const baseUrl = 'http://127.0.0.1:8000/'
 
 const baseQuery = fetchBaseQuery({
 	baseUrl,
@@ -26,7 +28,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 		// send refresh token to get new access token
 		const refreshResult = await baseQuery(
 			{
-				url: '/auth/refresh/',
+				url: '/user/refresh/',
 				method: 'POST',
 				body: { refresh: api.getState().auth.token?.refresh },
 			},
@@ -40,8 +42,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 				setCredentials({
 					user,
 					accessToken: {
-						access: refreshResult.data.access,
-						refresh: refreshResult.data.refresh,
+						// TODO: cambiar el nombre de la respuesta
+						// access: refreshResult.data.access,
+						access: refreshResult.data.access_token,
+						refresh: refreshResult.data.refresh_token,
 					},
 				})
 			)
