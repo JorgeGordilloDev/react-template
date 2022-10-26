@@ -10,7 +10,7 @@ const index = () => {
 	const navigate = useNavigate()
 	const location = useLocation()
 
-	const from = location.state?.from?.pathname || '/servicios'
+	const from = location.state?.from?.pathname
 
 	const [login, { isLoading, isError, error, data, isSuccess }] =
 		useLoginMutation()
@@ -43,7 +43,15 @@ const index = () => {
 			)
 			setPassword('')
 			setUsername('')
-			navigate(from, { replace: true })
+			let to_role
+			if (response.data?.roles == 'paciente') {
+				to_role = '/paciente'
+			} else if (response.data?.roles == 'medico') {
+				to_role = '/medico'
+			} else {
+				to_role = '/administrador'
+			}
+			navigate(from || to_role, { replace: true })
 		}
 	}
 
